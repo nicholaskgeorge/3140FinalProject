@@ -1,0 +1,5 @@
+gpio_driver_irq.c:44:6:PORTA_IRQHandler	8	static
+gpio_driver_irq.c:48:6:PORTB_IRQHandler	8	static
+gpio_driver_irq.c:52:6:PORTC_IRQHandler	8	static
+gpio_driver_irq.c:56:6:PORTD_IRQHandler	8	static
+gpio_driver_irq.c:60:6:PORTE_IRQHandler	8	static

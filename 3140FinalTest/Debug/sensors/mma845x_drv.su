@@ -1,0 +1,5 @@
+mma845x_drv.c:44:9:MMA845x_I2C_Initialize	48	static
+mma845x_drv.c:75:6:MMA845x_I2C_SetIdleTask	24	static
+mma845x_drv.c:83:9:MMA845x_I2C_Configure	40	static
+mma845x_drv.c:126:9:MMA845x_I2C_ReadData	48	static
+mma845x_drv.c:155:9:MMA845x_I2C_Deinit	32	static

@@ -1,0 +1,14 @@
+fsl_spi.h:350:20:SPI_Enable	16	static
+fsl_spi.h:443:20:SPI_EnableDMA	24	static
+fsl_spi.h:464:24:SPI_GetDataRegisterAddress	16	static
+fsl_dma.h:269:20:DMA_SetDestinationAddress	24	static
+fsl_dma.h:283:20:DMA_SetTransferSize	24	static
+fsl_dma.h:441:24:DMA_GetRemainingBytes	16	static
+fsl_dma.h:558:20:DMA_StartTransfer	16	static
+fsl_dma.h:573:20:DMA_StopTransfer	16	static
+fsl_spi_dma.c:88:13:SPI_TxDMACallback	40	static
+fsl_spi_dma.c:114:13:SPI_RxDMACallback	40	static
+fsl_spi_dma.c:140:6:SPI_MasterTransferCreateHandleDMA	56	static
+fsl_spi_dma.c:214:10:SPI_MasterTransferDMA	40	static
+fsl_spi_dma.c:294:10:SPI_MasterTransferGetCountDMA	40	static
+fsl_spi_dma.c:319:6:SPI_MasterTransferAbortDMA	16	static

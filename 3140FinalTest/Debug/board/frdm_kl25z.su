@@ -1,0 +1,8 @@
+fsl_clock.h:620:20:CLOCK_SetLpsci0Clock	16	static
+frdm_kl25z.c:256:10:UART0_GetFreq	8	static
+frdm_kl25z.c:269:10:UART1_GetFreq	8	static
+frdm_kl25z.c:281:10:UART2_GetFreq	8	static
+frdm_kl25z.c:293:10:I2C0_GetFreq	8	static
+frdm_kl25z.c:305:10:I2C1_GetFreq	8	static
+frdm_kl25z.c:317:10:SPI0_GetFreq	8	static
+frdm_kl25z.c:329:10:SPI1_GetFreq	8	static
