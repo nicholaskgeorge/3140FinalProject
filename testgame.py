@@ -22,12 +22,11 @@ image = pygame.image.load('cher.jpeg').convert()
 # infinite loop
 #pick random number 0-3 (0 straight, 1 right, 2 left, 3 jump)
 initial = 0
-ser = serial.Serial('COM5', 57600)
+ser = serial.Serial('COM12', 57600)
 
 while(1):
     time.sleep(1)
     data = ser.readline()
-    print("got here")
     if initial == 0:
         if(data == "ready"):
             inital=1
