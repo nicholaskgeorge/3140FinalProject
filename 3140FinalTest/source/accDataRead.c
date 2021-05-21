@@ -20,6 +20,9 @@
 #include "issdk_hal.h"
 #include "mma845x_drv.h"
 
+#include<stdio.h>
+#include<stdlib.h>
+
 //-----------------------------------------------------------------------
 // Macros
 //-----------------------------------------------------------------------
@@ -61,6 +64,7 @@ signed int current_X;
 signed int current_Y;
 signed int current_Z;
 unsigned int once_marker=0;
+unsigned int averager=0;
 
 
 //-----------------------------------------------------------------------
@@ -84,10 +88,10 @@ void PIT_IRQHandler(void) {
 	numSwitch=numSwitch+1;
 
 	//check if 5 switches have occurred
-	if((numSwitch==5)&&(loadValue>0)){
-		loadValue=loadValue-10485760; //decrement it by ~one second to speed game up
-		numSwitch=0;				  //reset switches back to 0
-	}
+//	if((numSwitch==5)&&(loadValue>0)){
+//		loadValue=loadValue-10485760; //decrement it by ~one second to speed game up
+//		numSwitch=0;				  //reset switches back to 0
+//	}
 
 	//SEND MESSAGE TO PORT FOR PYTHON TO READ, tell it to randomly choose image and send back int
 
@@ -95,31 +99,31 @@ void PIT_IRQHandler(void) {
 		//A SUCCESSFUL RIGHT TURN IS WHEN CURRENT X ~= OG_X-20
 		//A SUCCESSFUL LEFT TURN IS WHEN CURRENT X ~=OG_X+20
 
-	int testingRightLeft=1; //testing a successful right(1)/left(0) turn
+	//int randomnum= rand()%1;
+	int f= 1;
+	//PRINTF("\r\n %d \r\n", randomnum);
 
-	PRINTF("\r\n RIGHT OR LEFT = %d \r\n", testingRightLeft);
-	delay();
+	//SEND RANDNUM OVER TO PYTHON FOR DISPLAY!
 
-	if(testingRightLeft==1){ //image will be of right turn
+
+	if(f==1){ //image will be of right turn
 		//make sure the X decreased but also the Y and Z didn't change too much
-		if(current_X<=OG_X-10 && current_Y>=OG_Y-15 && current_Y<=OG_Y+15 && current_Z>=OG_Z-15 && current_Z<=OG_Z+15){
+		if(current_X>=7){
 			PRINTF("\r\n NICE RIGHT TURN!!!!!!!! \r\n");
 		}
 		else{
 			PRINTF("\r\n FIX UR SPECS OMG ITS WRONG!!!!!!!! \r\n");
 		}
-		testingRightLeft=0;
 	}
 
-	if(testingRightLeft==1){ //image will be of left turn
+	if(f==0){ //image will be of left turn
 			//make sure the X increased but also the Y and Z didn't change too much
-			if(current_X>=OG_X+10 && current_Y>=OG_Y-15 && current_Y<=OG_Y+15 && current_Z>=OG_Z-15 && current_Z<=OG_Z+15){
+			if(current_X<=-3){
 				PRINTF("\r\n NICE LEFT TURN!!!!!!!! \r\n");
 			}
 			else{
 				PRINTF("\r\n FIX UR SPECS OMG ITS WRONG!!!!!!!! \r\n");
 			}
-			testingRightLeft=1;
 		}
 
 
@@ -225,11 +229,18 @@ int main(void)
         	OG_Z=rawData.accel[2];
         }
         once_marker=1;
-        current_X=rawData.accel[0];
-        current_Y=rawData.accel[1];
-        current_Z=rawData.accel[2];
 
-        PRINTF("\r\n Curr_Accel X = %d  Y = %d  Z = %d\r\n", current_X, current_Y, current_Z);
+        averager++;
+        current_X=current_X+rawData.accel[0]-OG_X;
+        current_Y=current_Y+rawData.accel[1]-OG_Y;
+        current_Z=current_Z+rawData.accel[2]-OG_Z;
 
+        if(averager==3){
+        	current_X=current_X/6;
+        	current_Y=current_Y/6;
+        	current_Z=current_Z/6;
+        	averager=0;
+        	PRINTF("\r\n Curr_Accel X = %d  Y = %d  Z = %d\r\n", current_X, current_Y, current_Z);
+        }
     }
 }
